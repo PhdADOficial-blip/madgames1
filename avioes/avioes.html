@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../inicio/home.html" class="menu">Home</a></li>
+            <li><a href="../inicio/home.html" class="menu">Sobre</a></li>
+            <li><a href="../servico/servicos.html" class="menu">Serviços</a></li>
+            <li><a href="../passagens/tela-pesquisa-passagem.html" class="menu">Passagens</a></li>
+            <li><a href="avioes.html" class="menu">Conheça nossas aeronaves </a></li>
+            <li><a href="../login/login.html" class="menu">Login </a></li>
+        </ul>
+        
+        Aqui está o código atualizado. Foram adicionados **3 modelos de avião reais** (Boeing 777, Airbus A350 e Embraer E2) num menu de seleção (abas).
+
+        Quando o utilizador clica no modelo do avião, o fundo altera automaticamente para a foto real do interior da cabine desse avião específico, e o painel atualiza os dados técnicos reais de cada um (como velocidade e altitude). Tudo feito com HTML e CSS puro, sem IA e sem scripts pesados.
+        
+        ```html
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Janela de Bordo - Modelos de Avião</title>
+            <style>
+                /* Reset de estilos básicos */
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+        
+                /* Controle dos fundos reais baseado no avião selecionado */
+                body {
+                    background-size: cover;
+                    background-position: center;
+                    background-attachment: fixed;
+                    color: #ffffff;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                    overflow-x: hidden;
+                    transition: background-image 0.5s ease;
+                }
+        
+                /* Estado Inicial / Boeing 777 */
+                body:has(#boeing:checked) {
+                    background-image: linear-gradient(rgba(11, 21, 40, 0.85), rgba(11, 21, 40, 0.85)), url('https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=1920');
+                }
+                /* Airbus A350 */
+                body:has(#airbus:checked) {
+                    background-image: linear-gradient(rgba(11, 21, 40, 0.85), rgba(11, 21, 40, 0.85)), url('https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?q=80&w=1920');
+                }
+                /* Embraer E2 */
+                body:has(#embraer:checked) {
+                    background-image: linear-gradient(rgba(11, 21, 40, 0.85), rgba(11, 21, 40, 0.85)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1920');
+                }
+        
+                /* Menu Seletor de Aviões (Abas sem JavaScript) */
+                .aircraft-selector {
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                    background: rgba(15, 23, 42, 0.6);
+                    padding: 8px;
+                    border-radius: 50px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+        
+                .aircraft-selector label {
+                    padding: 10px 24px;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+                    color: #94a3b8;
+                }
+        
+                /* Inputs escondidos que controlam o estado da página */
+                input[type="radio"] {
+                    display: none;
+                }
+        
+                #boeing:checked ~ .aircraft-selector label[for="boeing"],
+                #airbus:checked ~ .aircraft-selector label[for="airbus"],
+                #embraer:checked ~ .aircraft-selector label[for="embraer"] {
+                    background: #38bdf8;
+                    color: #0b1528;
+                    box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
+                }
+        
+                /* Container Principal da Cabine */
+                .cabin-container {
+                    width: 100%;
+                    max-width: 1100px;
+                    padding: 40px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 50px;
+                    align-items: center;
+                    background: rgba(15, 23, 42, 0.45);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border-radius: 24px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+        
+                /* Estrutura da Janela */
+                .window-section {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+        
+                .airplane-window {
+                    width: 310px;
+                    height: 460px;
+                    background: #e2e8f0;
+                    border-radius: 150px;
+                    padding: 22px;
+                    box-shadow: inset 0 0 20px rgba(0,0,0,0.4), 0 20px 40px rgba(0,0,0,0.6);
+                    border: 4px solid #cbd5e1;
+                }
+        
+                .window-inner {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 130px;
+                    overflow: hidden;
+                    position: relative;
+                    box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+                    background: #1a202c;
+                }
+        
+                .window-view {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+        
+                .window-inner::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
+                    pointer-events: none;
+                }
+        
+                /* Lado do Conteúdo Dinâmico */
+                .info-section h1 {
+                    font-size: 2.3rem;
+                    margin-bottom: 15px;
+                    color: #f8fafc;
+                    font-weight: 600;
+                }
+        
+                .info-section p {
+                    font-size: 1.05rem;
+                    line-height: 1.6;
+                    color: #cbd5e1;
+                    margin-bottom: 25px;
+                }
+        
+                /* Exibição Alternada das Informações de cada modelo */
+                .aircraft-info {
+                    display: none;
+                }
+        
+                #boeing:checked ~ .cabin-container .info-boeing,
+                #airbus:checked ~ .cabin-container .info-airbus,
+                #embraer:checked ~ .cabin-container .info-embraer {
+                    display: block;
+                }
+        
+                /* Painel de Dados Técnicos */
+                .flight-status {
+                    background: rgba(15, 23, 42, 0.6);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    border-radius: 12px;
+                    padding: 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 30px;
+                }
+        
+                .status-item span {
+                    display: block;
+                    font-size: 0.75rem;
+                    color: #94a3b8;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    margin-bottom: 5px;
+                }
+        
+                .status-item strong {
+                    font-size: 1.15rem;
+                    color: #38bdf8;
+                }
+        
+                .btn-action {
+                    display: inline-block;
+                    background: #38bdf8;
+                    color: #0b1528;
+                    padding: 14px 28px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+                }
+        
+                /* Responsividade */
+                @media (max-width: 768px) {
+                    .cabin-container {
+                        grid-template-columns: 1fr;
+                        text-align: center;
+                        padding: 30px 20px;
+                    }
+                    .window-section { order: -1; }
+                    .flight-status { flex-direction: column; gap: 15px; }
+                    .aircraft-selector { flex-direction: column; border-radius: 20px; width: 90%; text-align: center; }
+                }
+            </style>
+        </head>
+        <body>
+        
+            <input type="radio" id="boeing" name="aircraft" checked>
+            <input type="radio" id="airbus" name="aircraft">
+            <input type="radio" id="embraer" name="aircraft">
+        
+            <div class="aircraft-selector">
+                <label for="boeing">Boeing 777</label>
+                <label for="airbus">Airbus A350</label>
+                <label for="embraer">Embraer E2</label>
+            </div>
+        
+            <div class="cabin-container">
+                
+                <section class="window-section">
+                    <div class="airplane-window">
+                        <div class="window-inner">
+                            <img class="window-view" src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?q=80&w=1000" alt="Vista da janela">
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="info-section">
+                    
+                    <div class="aircraft-info info-boeing">
+                        <h1>Boeing 777-300ER</h1>
+                        <p>Conhecido como "Triple Seven", é um dos maiores e mais potentes bimotores comerciais do mundo. Sua cabine é larga e oferece um voo muito estável em rotas de longo curso.</p>
+                        <div class="flight-status">
+                            <div class="status-item"><span>Velocidade</span><strong>905 km/h</strong></div>
+                            <div class="status-item"><span>Altitude</span><strong>39.000 pés</strong></div>
+                            <div class="status-item"><span>Configuração</span><strong>3-4-3</strong></div>
+                        </div>
+                    </div>
+        
+                    <div class="aircraft-info info-airbus">
+                        <h1>Airbus A350-900</h1>
+                        <p>Um dos aviões mais modernos da atualidade, feito em grande parte de fibra de carbono. Possui janelas maiores e um sistema de pressurização que cansa menos o corpo.</p>
+                        <div class="flight-status">
+                            <div class="status-item"><span>Velocidade</span><strong>903 km/h</strong></div>
+                            <div class="status-item"><span>Altitude</span><strong>41.000 pés</strong></div>
+                            <div class="status-item"><span>Configuração</span><strong>3-3-3</strong></div>
+                        </div>
+                    </div>
+        
+                    <div class="aircraft-info info-embraer">
+                        <h1>Embraer E195-E2</h1>
+                        <p>O orgulho da aviação comercial regional. A nova geração E2 é super silenciosa e famosa pelo conforto de não ter a poltrona do meio (fileiras de apenas dois assentos).</p>
+                        <div class="flight-status">
+                            <div class="status-item"><span>Velocidade</span><strong>870 km/h</strong></div>
+                            <div class="status-item"><span>Altitude</span><strong>37.000 pés</strong></div>
+                            <div class="status-item"><span>Configuração</span><strong>2-2</strong></div>
+                        </div>
+                    </div>
+        
+                    <a href="#" class="btn-action">Ver Mapa de Assentos</a>
+                </section>
+        
+            </div>
+        
+        </body>
+        </html>
+        
+        ```
+
+    </div>
+
+</body>
+</html>
+</body>
+</html>
+
+            </div>
+        </div>
+    </div>
+
+</body>

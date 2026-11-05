@@ -1,0 +1,191 @@
+*{
+padding: 0;
+margin: 0;
+font-family: Arial, Helvetica, sans-serif;
+
+} 
+a{text-decoration: none;
+    color: rgb(18, 17, 17);
+}
+nav{ 
+/*background: transparent;*/
+position: fixed;
+/*z-index: 1000;*/
+top: 0;
+width: 100%;
+height: 60px;
+transition: 0.8s;
+background-color:rgba(10, 20, 40, 0.92);
+
+
+}
+
+
+nav ul{
+display: flex;
+list-style: none;
+
+
+
+}
+li{
+    text-decoration: none;
+color: antiquewhite;
+flex: 1;
+height: 60px;
+
+}
+
+.menu{ color: antiquewhite;
+    position: relative;;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;/*para que o link ocupe todo espaÃ§o devesse definir a altura no li*/
+    flex: 1; 
+    text-decoration: none; 
+    font-family: "Inter", sans-serif;
+    border-radius: 10px;
+    transition: 0.8s;
+}
+a:hover{
+    background-color: #be9e0b;
+}
+
+.apre{
+    
+    width: 100%;
+    height: 500px;
+    padding-top: 100px;
+    
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    
+
+
+}
+.texto{
+    
+    
+    width: 550px;
+    height: 400px;
+    box-sizing: border-box;
+}
+.img-apre{
+    
+    width: 550px;
+    height: 400px;
+    display: flex;
+    overflow: hidden;
+    justify-content: space-around;
+    border-radius: 10px;
+    
+    
+
+}
+h1{
+    text-align: center;
+    size: 10px;
+
+}
+
+.servi{
+  
+    display: flex;
+    text-align: center;
+    width: 100%;
+    height: 400px;
+    justify-content: space-between;
+justify-content: space-around;
+padding-top: 20px;
+
+}
+
+.cards{
+
+
+padding-top: 60px;
+width: 300px;
+height: 350px;
+border: 2px solid black;
+border-radius: 5px;
+
+}
+.cards h1{
+    font-size: 25px;
+}
+
+.cards img{
+padding: 40px;
+height: 60px;
+width: 60px;
+
+}
+.cards p{
+ text-align: justify;
+ padding-left: 10px;
+ padding-right: 10px;
+ margin-top: 10px;
+ 
+}
+
+.form{
+    
+    height: 600px;
+background-color:rgba(10, 20, 40, 0.92);
+
+
+.formulario{
+    padding-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+    margin: 40px;
+    border-radius: 30px;
+   background-color:rgba(24, 87, 204, 0.833);
+    padding: 60px;
+}
+.agenda{ flex: 1;
+}
+.agenda p{
+    text-align: justify;
+    line-height: 1.6;
+ }
+.selecao{
+
+flex: 1;
+max-width: 450px;
+
+}
+.selecao label{
+    display:block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    }
+ }
+ .selecao select {
+
+    width: 100%;
+    padding: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+.selecao input{
+    padding: 10px;
+    border-radius: 5px;
+}
+.beneficio{ 
+    display: flex;
+    
+    gap: 10px;
+    margin-top: 20px;
+}
+.beneficio img{
+    width: 32px;
+    height: 32px;
+}
