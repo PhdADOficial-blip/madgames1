@@ -1,0 +1,234 @@
+
+Principais tipos de cookies
+
+• Cookies primários: Criados pelo próprio site que você está visitando para ajudar na navegação e funcionalidade básica.
+• Cookies de terceiros: Criados por empresas parceiras (como redes sociais ou plataformas de anúncios) para rastrear o seu comportamento em vários sites diferentes e direcionar publicidade.
+• Cookies de sessão: Temporários; são apagados automaticamente assim que você fecha o navegador.
+• Cookies persistentes: Ficam salvos no seu aparelho até uma data de validade definida ou até você excluí-los manualmente.
+
+
+
+Ideia para o projeto: O "Cupom de Primeira Visita"
+
+Como o objetivo do site é apresentar a loja e gerar contatos, vamos usar o cookie para verificar se é a primeira vez que o cliente entra no site. Se for, o site mostra uma mensagem com um Cupom de Desconto (ex: GAMER10) para incentivar o cliente a rolar a página até o formulário de contato e mandar uma mensagem.
+Se ele atualizar a página, o cookie "lembra" dele e não mostra o aviso repetido, evitando chatear o cliente.
+
+
+
+// 1. Função para ler se o cookie já existe no navegador
+function obterCookie(nome) {
+    let nomeProcurado = nome + "=";
+    let cookies = document.cookie.split(';');
+    for(let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nomeProcurado) == 0) return c.substring(nomeProcurado.length, c.length);
+    }
+    return "";
+}
+
+// 2. Lógica principal rodada ao carregar a página da loja de games
+window.onload = function() {
+    let visitou = obterCookie("usuario_ja_visitou");
+
+    if (visitou === "") {
+        // Se o cookie NÃO existe, é a primeira visita!
+        // Aqui você mostra o alerta do cupom
+        alert("🎮 Bem-vindo à nossa Loja Game! Use o cupom GAMER10 ao entrar em contato e ganhe 10% de desconto no seu primeiro jogo!");
+        
+        // Criamos o cookie para durar 7 dias, assim ele não vê o alert de novo se atualizar a página
+        let data = new Date();
+        data.setTime(data.getTime() + (7 * 24 * 60 * 60 * 1000));
+        document.cookie = "usuario_ja_visitou=sim; expires=" + data.toUTCString() + "; path=/; SameSite=Lax; Secure";
+    } else {
+        // Se o cookie JÁ existe, o navegador apenas exibe uma mensagem discreta no console
+        console.log("Usuário recorrente. O cookie evitou o alerta repetido.");
+    }
+};
+
+para adiconar na pagina - no final antes do </bory> 
+
+
+Importante sobre a localização dos arquivos
+
+Pela estrutura de pastas que aparece na barra lateral esquerda da sua imagem (Explorer), o arquivo cookie.js está localizado dentro da pasta chamada inicio.
+• Se o arquivo home.html estiver na mesma pasta (inicio): O código acima <script src="cookie.js"></script> vai funcionar perfeitamente.
+• Se o arquivo home.html estiver fora da pasta inicio (na pasta raiz): Você precisará indicar o caminho correto da pasta onde o JavaScript está guardado, mudando a linha para:
+    <script src="inicio/cookie.js"></script>
+
+
+-----------------------------------------------------------------------------------------
+para adiconar na pagina - no final antes do </bory> 
+
+    <!-- Outros conteúdos do seu site (banners, produtos, contato, etc.) -->
+
+    <!-- VINCULANDO O SCRIPT DO COOKIE -->
+    <script src="cookie.js"></script>
+</body>
+</html>
+
+O que falar na apresentação (Roteiro para a Banca)
+
+Para tirar nota 10, explique a funcionalidade dividindo em três pontos simples: O Objetivo, O Problema Comercial e A Solução Técnica.
+• O Objetivo da Loja: "Nosso site foi desenvolvido para apresentar a nossa loja de games, exibir nosso catálogo de jogos/consoles e capturar clientes, direcionando-os para a nossa seção de contato."
+• A Necessidade dos Cookies: "Para tornar a experiência do usuário mais profissional e dinâmica, implementamos o uso de cookies de navegação no ecossistema do site."
+• Como funciona na prática (A Solução): "Criamos um sistema de engajamento baseado em cookies. Quando o cliente acessa a loja pela primeira vez, o JavaScript verifica que não há registros anteriores e exibe um banner de boas-vindas oferecendo um cupom de desconto de 10% para que ele use na área de contato. No momento em que o alerta fecha, o site grava um cookie chamado usuario_ja_visitou no navegador do cliente válido por 7 dias. Se o cliente atualizar a página ou navegar entre os produtos, o código lê esse cookie, reconhece que ele já é um visitante e não o incomoda com o mesmo alerta novamente."
+• O Ganho com isso: "Isso demonstra como usamos a tecnologia para melhorar a experiência do usuário (UX), simulando uma estratégia real de marketing digital para reter o cliente na nossa loja."
+
+
+
+para estilizar 
+
+para adiconar estilo demos que substituir o alert()  por um modal personalizado em HTML e CSS
+
+O que você precisa fazer:
+
+
+1. No seu arquivo home.html
+
+Adicione o código do modal logo no começo da sua tag <body> (pode ser logo abaixo da abertura da tag <body> ou antes do seu menu/nav):
+
+       <!-- MODAL DE BOAS-VINDAS (CUPOM) -->
+    <div id="meuModalCookie" class="modal-cookie">
+        <div class="conteudo-modal">
+            <span class="fechar-modal" onclick="fecharModalGame()">&times;</span>
+            <h2>🎮 Bem-vindo à nossa Loja Game!</h2>
+            <p>Use o cupom abaixo ao entrar em contato e ganhe 10% de desconto no seu primeiro jogo!</p>
+            <div class="cupom-destaque">GAMER10</div>
+            <button class="botao-modal" onclick="fecharModalGame()">Começar a Navegar</button>
+        </div>
+    </div>
+
+
+2. No seu arquivo estilo.css (ou style.css)
+
+Adicione as regras abaixo para estilizar a janela. Ela vai ficar com um fundo escuro semi-transparente e um card centralizado bem moderno:
+
+/* Fundo escuro que cobre a tela toda */
+.modal-cookie {
+    display: none; /* Começa escondido, o JS vai mostrar */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Efeito de desfoque/escurecido atrás */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Caixa branca/central do alerta */
+.conteudo-modal {
+    background-color: #1e1e24; /* Um tom escuro que combina com tema gamer */
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 2px solid #ff0055; /* Uma borda colorida estilo gamer */
+    position: relative;
+    font-family: sans-serif;
+}
+
+/* O botão de fechar (X) */
+.fechar-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+.fechar-modal:hover {
+    color: #ff0055;
+}
+
+/* Caixa de destaque do Cupom */
+.cupom-destaque {
+    background-color: #ff0055;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 10px;
+    margin: 20px auto;
+    border-style: dashed;
+    border-width: 2px;
+    width: 200px;
+    letter-spacing: 2px;
+}
+
+/* Botão de confirmação */
+.botao-modal {
+    background-color: #00ffcc;
+    color: #111;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.botao-modal:hover {
+    background-color: #00ccaa;
+    transform: scale(1.05);
+}
+
+
+3. No seu arquivo cookie.js
+
+Substitua o código atual pelo código abaixo. Ele troca a linha do alert() pelo comando que faz o nosso novo modal aparecer na tela:
+
+function obterCookie(nome) {
+    let nomeProcurado = nome + "=";
+    let cookies = document.cookie.split(';');
+    for(let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nomeProcurado) == 0) return c.substring(nomeProcurado.length, c.length);
+    }
+    return "";
+}
+
+// Função para fechar o modal na tela quando clicar no botão ou no X
+function fecharModalGame() {
+    document.getElementById("meuModalCookie").style.display = "none";
+}
+
+window.onload = function() {
+    let visitou = obterCookie("usuario_ja_visitou");
+
+    if (visitou === "") {
+        // Se NÃO tem o cookie, exibe o modal estilizado mudando o display para flex
+        document.getElementById("meuModalCookie").style.display = "flex";
+        
+        // Cria o cookie para não incomodar o usuário na próxima vez
+        let data = new Date();
+        data.setTime(data.getTime() + (7 * 24 * 60 * 60 * 1000));
+        document.cookie = "usuario_ja_visitou=sim; expires=" + data.toUTCString() + "; path=/; SameSite=Lax; Secure";
+    } else {
+        console.log("Usuário recorrente. O cookie evitou o modal.");
+    }
+};
+
+
+-----------------------------------------------------------------------------
+// 1. Identifica o botão do WhatsApp no seu site
+const botaoWhatsapp = document.querySelector('#meu-botao-whatsapp');
+
+// 2. Quando o cliente clicar no botão...
+botaoWhatsapp.addEventListener('click', function() {
+    // Salva no navegador que o cliente clicou
+    localStorage.setItem('cliente_chamou_no_whats', 'sim');
+});
+
+// 3. Quando a página carregar (hoje ou em uma próxima visita)
+document.addEventListener('DOMContentLoaded', function() {
+    // Verifica se o cliente já clicou no passado
+    if (localStorage.getItem('cliente_chamou_no_whats') === 'sim') {
+        // [Insira sua função útil aqui]
+        // Exemplo: Esconder o botão do WhatsApp
+        botaoWhatsapp.style.display = 'none'; 
+    }
+});

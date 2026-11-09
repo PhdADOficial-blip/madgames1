@@ -1,6 +1,7 @@
 *{
 padding: 0;
 margin: 0;
+box-sizing: border-box;
 
 } 
 a{text-decoration: none;
@@ -14,7 +15,7 @@ top: 0;
 width: 100%;
 height: 60px;
 transition: 0.8s;
-background-color:rgba(29, 53, 78, 0.92);
+background-color:rgba(10, 20, 40, 0.92);
 
 
 }
@@ -35,7 +36,7 @@ height: 60px;
 
 }
 
-.menu{ color: rgb(247, 250, 247);
+.menu{ color: antiquewhite;
     position: relative;;
    
     display: flex;
@@ -67,18 +68,21 @@ img{
     max-width: 100%;
 }
 .logoetexto{
-    background-color: rgba(250, 247, 247, 0.914);
+    background-color: rgba(255, 255, 255, 0.914);
     display: flex;
-    text-decoration-color: rgb(242, 245, 247);
+    align-items: center;
+    gap: 24px;
 }
-.logoetexto img{
-width: 300px;
-height: 300px;
-padding-top: 60px;
-padding-left: 60px;
+.logoetexto img.logo1{
+    width: min(320px, 100%);
+    height: auto;
+    padding: 32px;
+    object-fit: contain;
 }
 .sobre{
     padding: 70px;
+    flex: 1;
+    min-width: 0;
 
 }
 .sobre p{
@@ -97,27 +101,22 @@ flex: 1;
 }
 .conteiner{
  width: 100%;
- height: 100vh;
- background-color: rgba(231, 248, 248, 0);
+ min-height: 60vh;
+ background-color: rgba(249, 251, 251, 0);
  display: flex;
  justify-content: space-around;
- padding-top: 10vh;
-
-}
-.cards{
-    
-    width: 300vw;
-    height: 300vh;
-    background-color: rgba(253, 252, 251, 0);
-    object-fit: cover;
-    align-items: center;
-    transition: 0.8s;
+ flex-wrap: wrap;
+ gap: 24px;
+ padding: 40px 24px;
 
 }
 .fotos{
-text-align: center;
-object-fit: cover;
-border-radius: 10px;}
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 10px;
+}
 h1{
 text-align: center;
 font-family: Arial, Helvetica, sans-serif;
@@ -125,21 +124,12 @@ font-size: 20px;
 
 }
 .cards{
-    object-fit: cover;
-    width: 350px;
-    height: 350px;
-    background-color: rgba(244, 244, 247, 0);}
-
-.fotos{
-width: 100%;
-height: 100%;
-transition: 0.8s;
+    width: min(350px, 100%);
+    text-align: center;
 }
-.fotos:hover{
-    
-    width: 400px;
-    height: 400px;
 
+.fotos:hover{
+    transform: scale(1.02);
 }
 .links:hover{
     background-color: rgb(252, 252, 252);
@@ -151,18 +141,107 @@ transition: 0.8s;
 }
 
 
-@media(max-width:320px){
-   
+@media(max-width: 640px){
+    nav,
     nav ul{
-        display: flex;
-        flex-direction: column;
+        height: auto;
     }
-    .conteiner{ 
-        flex-direction: column;
+    nav ul{
+        flex-wrap: wrap;
+    }
+    nav li{
+        flex: 1 1 50%;
+        height: 48px;
+    }
+    .capa{
+        padding-top: 96px;
     }
     .logoetexto{
-    flex-direction: column-reverse;}
-    .fotos h1{ 
         flex-direction: column;
+        gap: 0;
     }
+    .logoetexto img.logo1{
+        width: min(260px, 100%);
+    }
+    .sobre{
+        padding: 24px;
+    }
+    .conteiner{
+        padding: 24px;
+    }
+}
+
+/* Fundo escuro que cobre a tela toda */
+.modal-cookie {
+    display: none; /* Começa escondido, o JS vai mostrar */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Efeito de desfoque/escurecido atrás */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Caixa branca/central do alerta */
+.conteudo-modal {
+    background-color: #1e1e24; /* Um tom escuro que combina com tema gamer */
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 2px solid #be9e0b;
+    position: relative;
+    font-family: sans-serif;
+}
+
+/* O botão de fechar (X) */
+.fechar-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+    border: 0;
+    background: transparent;
+}
+.fechar-modal:hover {
+    color: #be9e0b;
+}
+
+/* Caixa de destaque do Cupom */
+.cupom-destaque {
+    background-color: #be9e0b;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 10px;
+    margin: 20px auto;
+    border-style: dashed;
+    border-width: 2px;
+    width: 200px;
+    letter-spacing: 2px;
+}
+
+/* Botão de confirmação */
+.botao-modal {
+    background-color: #be9e0b;
+    color: #111;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.botao-modal:hover {
+    background-color: #d3b52c;
+    transform: scale(1.05);
 }

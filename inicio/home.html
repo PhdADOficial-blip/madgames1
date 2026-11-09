@@ -3,11 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAD GAME</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
 
 <body>
+        <!-- MODAL DE BOAS-VINDAS (CUPOM) -->
+    <div id="meuModalCookie" class="modal-cookie">
+        <div class="conteudo-modal" role="dialog" aria-modal="true" aria-labelledby="tituloModalCookie">
+            <button class="fechar-modal" type="button" aria-label="Fechar aviso" onclick="fecharModalGame()">&times;</button>
+            <h2 id="tituloModalCookie">Bem-vindo à MAD GAME!</h2>
+            <p>Use o cupom abaixo ao entrar em contato e ganhe 10% de desconto no seu primeiro jogo!</p>
+            <div class="cupom-destaque">GAMER10</div>
+            <button class="botao-modal" onclick="fecharModalGame()">Começar a Navegar</button>
+        </div>
+    </div>
+
     <nav>
         <ul>
             <li><a href="home.html" class="menu">Home</a></li>
@@ -19,12 +31,12 @@
 
     <div class="capa">
         <picture>
-            <img src="imagens/capa.jpeg" alt="Capa da MAD GAME">
+            <img src="imagens/capa.jpeg" alt="Banner da MAD GAME">
         </picture>
     </div>
 
     <div class="logoetexto">
-        <img src="imagens/logo.jpeg" class="logo1" alt="Logo da MAD GAME">
+        <img src="imagens/logo.png" class="logo1" alt="Logo da MAD GAME">
 
         <div class="sobre">
             <h1 class="titulo" id="sobre1">Sobre a MAD GAME</h1>
@@ -40,26 +52,26 @@
 
     <div class="conteiner">
         <div class="cards">
-            <div>
-                <img src="imagens/jogo1.jpg" alt="Imagem do Game 1" class="fotos">
-                <h1>Game 1 </h1>
-            </div>
+            <img src="imagens/jogo1.jpg" alt="Imagem do Game 1" class="fotos">
+            <h2>Game 1</h2>
         </div>
 
         <div class="cards">
-            <div>
-                <img src="imagens/jogo2.jpg" alt="Imagem do Game 2" class="fotos">
-                <h1>Game 2 </h1>
-            </div>
+            <img src="imagens/jogo2.jpg" alt="Imagem do Game 2" class="fotos">
+            <h2>Game 2</h2>
         </div>
 
         <div class="cards">
             <a href="../servico/servicos.html" class="links">
-                <img src="imagens/jogo3.jpeg" alt="Serviços" class="fotos">
-                <h1>Game 3</h1>
+                <img src="imagens/jogo3.jpeg" alt="Imagem para conhecer os serviços" class="fotos">
+                <h1>Conheça os serviços</h1>
             </a>
         </div>
     </div>
+
+     
+<script src="cookies.js"></script>
+  
 </body>
 
 </html>

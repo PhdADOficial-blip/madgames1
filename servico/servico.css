@@ -189,3 +189,69 @@ max-width: 450px;
     width: 32px;
     height: 32px;
 }
+
+@media (max-width: 760px){
+    nav,
+    nav ul{
+        height: auto;
+    }
+    nav ul{
+        flex-wrap: wrap;
+    }
+    nav li{
+        flex: 1 1 50%;
+        height: 48px;
+    }
+    .apre{
+        width: 100%;
+        height: auto;
+        padding: 120px 24px 32px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .apre .texto,
+    .img-apre{
+        width: min(550px, 100%);
+        height: auto;
+    }
+    .img-apre img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .servi{
+        height: auto;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 20px 16px;
+    }
+    .cards{
+        width: min(300px, 100%);
+        height: auto;
+        padding: 24px 16px;
+    }
+    .form{
+        height: auto;
+    }
+    .formulario{
+        flex-direction: column;
+        gap: 28px;
+        margin: 0;
+        padding: 24px;
+        border-radius: 0;
+    }
+    .selecao,
+    .selecao form{
+        width: 100%;
+        max-width: none;
+    }
+    .selecao input,
+    .selecao select,
+    .selecao textarea{
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .selecao textarea{
+        min-height: 100px;
+    }
+}
